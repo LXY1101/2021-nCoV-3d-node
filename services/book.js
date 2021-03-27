@@ -235,6 +235,12 @@ function home() {
   })
 }
 
+async function listArea() {
+    let bookSql = 'select * from area';
+
+    return db.querySql(bookSql)
+}
+
 module.exports = {
   insertBook,
   getBook,
@@ -243,5 +249,6 @@ module.exports = {
   getCategory,
   updateBook,
   deleteBook,
-  home
+  home,
+  listArea
 }

@@ -141,4 +141,11 @@ router.get('/home', function(req, res, next) {
   })
 })
 
+router.get('/area', function(req, res, next) {
+    bookService.listArea().then(result => {
+        new Result(result).success(res)
+    }).catch(err => {
+        next(boom.badImplementation(err))
+    })
+})
 module.exports = router
