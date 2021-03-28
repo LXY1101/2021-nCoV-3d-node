@@ -143,7 +143,23 @@ router.get('/home', function(req, res, next) {
 
 router.get('/area', function(req, res, next) {
     bookService.listArea().then(result => {
-        new Result(result).success(res)
+        let incrVo;
+
+        for(let value of result){
+            const currentConfirmedIncr = value.currentConfirmedIncr;
+            const confirmedIncr = value.confirmedIncr;
+            const curedIncr = value.curedIncr;
+            const deadIncr = value.deadIncr;
+            incrVo = {currentConfirmedIncr,confirmedIncr,curedIncr,deadIncr};
+            value['incrVo'] = incrVo;
+            delete value.currentConfirmedIncr;
+            delete value.confirmedIncr;
+            delete value.curedIncr;
+            delete value.deadIncr;
+        }
+        new Result(
+            result
+        ).success(res)
     }).catch(err => {
         next(boom.badImplementation(err))
     })
