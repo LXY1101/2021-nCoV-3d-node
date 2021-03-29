@@ -236,9 +236,17 @@ function home() {
 }
 
 async function listArea() {
-    let bookSql = 'select * from area';
+    let sql1 = 'select * from area';
+    let sql2 = 'select * from china_area';
+    let sql3 = 'select * from china_cities';
+    return Promise.all([
+        db.querySql(sql1),
+        db.querySql(sql2),
+        db.querySql(sql3)
+    ]).then(results => {
+        return results
+    })
 
-    return db.querySql(bookSql)
 }
 
 module.exports = {

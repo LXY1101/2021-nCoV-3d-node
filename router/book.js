@@ -145,7 +145,7 @@ router.get('/area', function(req, res, next) {
     bookService.listArea().then(result => {
         let incrVo;
 
-        for(let value of result){
+        for(let value of result[0]){
             const currentConfirmedIncr = value.currentConfirmedIncr;
             const confirmedIncr = value.confirmedIncr;
             const curedIncr = value.curedIncr;
@@ -157,8 +157,16 @@ router.get('/area', function(req, res, next) {
             delete value.curedIncr;
             delete value.deadIncr;
         }
+        for(let value1 of result[1]){
+            value1.cities = [];
+            for(let value2 of result[2]){
+                if(value1.provinceName === value2.provinceName){
+                    value1.cities.push(value2)
+                }
+            }
+        }
         new Result(
-            result
+            result[0].concat(result[1])
         ).success(res)
     }).catch(err => {
         next(boom.badImplementation(err))
