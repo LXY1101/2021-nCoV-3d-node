@@ -171,5 +171,14 @@ router.get('/area', function(req, res, next) {
     }).catch(err => {
         next(boom.badImplementation(err))
     })
-})
-module.exports = router
+});
+router.get('/c_info', function(req, res, next) {
+    bookService.getChinaDailyData().then(result => {
+        new Result(
+            result
+        ).success(res)
+    }).catch(err => {
+        next(boom.badImplementation(err))
+    })
+});
+module.exports = router;

@@ -249,6 +249,11 @@ async function listArea() {
 
 }
 
+async function getChinaDailyData() {
+  let sql = 'select * from chinaDailyData';
+  return  db.querySql(sql)
+}
+
 module.exports = {
   insertBook,
   getBook,
@@ -258,5 +263,6 @@ module.exports = {
   updateBook,
   deleteBook,
   home,
-  listArea
+  listArea,
+  getChinaDailyData
 }
